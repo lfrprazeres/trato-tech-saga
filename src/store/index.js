@@ -20,7 +20,7 @@ const store = configureStore({
   middleware:
     getDefaultMiddleware =>
       getDefaultMiddleware().prepend(
-        categoriasListener.middleware,
+        // categoriasListener.middleware,
         itensListener.middleware,
         sagaMiddleware
       ),
