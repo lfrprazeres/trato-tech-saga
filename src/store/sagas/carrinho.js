@@ -25,7 +25,7 @@ function* carregarPagamentoSaga() {
 function* calcularTotal() {
   yield delay(500);
   const state = yield select();
-  const total = state.carrinho.reduce((total, itemNoCarrinho) => {
+  const total = state.carrinho.data.reduce((total, itemNoCarrinho) => {
     const item = state.itens.find(item => item.id === itemNoCarrinho.id);
     return total + item.preco * itemNoCarrinho.quantidade;
   }, 0);
