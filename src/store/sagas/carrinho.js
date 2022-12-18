@@ -6,7 +6,7 @@ import { carregarPagamento } from 'store/reducers/carrinho';
 import { adicionarUsuario } from '../reducers/usuario';
 import { mudarCarrinho, mudarQuantidade, mudarTotal } from '../reducers/carrinho';
 
-const usuarioLogado = 1;
+const usuarioLogado = 2;
 
 function* carregarPagamentoSaga() {
   try {
