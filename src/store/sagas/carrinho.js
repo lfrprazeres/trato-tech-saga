@@ -2,9 +2,12 @@ import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effe
 import bandeirasService from 'services/bandeiras';
 import cartoesService from 'services/cartoes';
 import usuariosService from 'services/usuarios';
-import { carregarPagamento } from 'store/reducers/carrinho';
+import { carregarPagamento, finalizarPagamento, resetarCarrinho } from 'store/reducers/carrinho';
 import { adicionarUsuario } from '../reducers/usuario';
 import { mudarCarrinho, mudarQuantidade, mudarTotal } from '../reducers/carrinho';
+import { createStandaloneToast } from '@chakra-ui/toast';
+
+const { toast } = createStandaloneToast();
 
 const usuarioLogado = 2;
 
@@ -32,7 +35,31 @@ function* calcularTotal() {
   yield put(mudarTotal(total));
 }
 
+function* finalizarPagamentoSaga({ payload }) {
+  const { valorTotal, formaDePagamento } = payload;
+
+  if (valorTotal > formaDePagamento.saldo) {
+    return yield toast({
+      title: 'Erro',
+      description: 'Saldo insuficiente',
+      status: 'error',
+      duration: 2000,
+      isClosable: true
+    });
+  } else {
+    yield toast({
+      title: 'Sucesso!',
+      description: 'Compra realizada com sucesso!',
+      status: 'success',
+      duration: 2000,
+      isClosable: true
+    });
+    yield put(resetarCarrinho());
+  }
+}
+
 export function* carrinhoSaga() {
   yield takeLatest(carregarPagamento, carregarPagamentoSaga);
   yield takeEvery([mudarQuantidade, mudarCarrinho], calcularTotal);
+  yield takeLatest(finalizarPagamento, finalizarPagamentoSaga);
 }

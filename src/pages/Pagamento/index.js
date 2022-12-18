@@ -4,7 +4,7 @@ import Select from 'components/Select';
 import Button from 'components/Button';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { carregarPagamento } from 'store/reducers/carrinho';
+import { carregarPagamento, finalizarPagamento } from 'store/reducers/carrinho';
 
 export default function Pagamento() {
   const [formaDePagamento, setFormaDePagamento] = useState('-');
@@ -17,6 +17,10 @@ export default function Pagamento() {
     if (evento.target.value === '-') return setFormaDePagamento('-');
 
     setFormaDePagamento(usuario.cartoes.find(cartao => cartao.id === evento.target.value));
+  }
+
+  function finalizar() {
+    dispatch(finalizarPagamento({ valorTotal, formaDePagamento }));
   }
 
   useEffect(() => {
@@ -44,7 +48,10 @@ export default function Pagamento() {
           <p> Total com taxas: R$ {valorTotal.toFixed(2)} </p>
         </div>
         <div className={styles.finalizar}>
-          <Button> Finalizar Compra </Button>
+          <Button
+            disabled={valorTotal === 0 || formaDePagamento === '-'}
+            onClick={finalizar}
+          > Finalizar Compra </Button>
         </div>
       </div>
     </div>
