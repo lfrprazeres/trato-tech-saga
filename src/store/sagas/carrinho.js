@@ -1,8 +1,9 @@
-import { call, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import bandeirasService from 'services/bandeiras';
 import cartoesService from 'services/cartoes';
 import usuariosService from 'services/usuarios';
 import { carregarPagamento } from 'store/reducers/carrinho';
+import { adicionarUsuario } from '../reducers/usuario';
 
 const usuarioLogado = 1;
 
@@ -16,7 +17,7 @@ function* carregarPagamentoSaga() {
       const bandeiraDoCartao = bandeiras.find(bandeira => bandeira.id === cartao.bandeiraId);
       return { ...cartao, taxa: bandeiraDoCartao.taxa, bandeira: bandeiraDoCartao.nome };
     });
-    console.log({ ...usuario, cartoes: cartoesComBandeiras });
+    yield put(adicionarUsuario({ ...usuario, cartoes: cartoesComBandeiras }));
   } catch(e) {}
 }
 
