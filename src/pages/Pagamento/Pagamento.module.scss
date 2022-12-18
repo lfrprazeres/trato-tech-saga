@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.forma {
+  text-align: left;
+  font-size: 20px;
+  width: 100%;
+}
+
+.dados {
+  align-items: flex-start;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0 auto;
+  max-width: 500px;
+  min-width: calc(200px);
+  padding: 30px 0;
+  text-align: left;
+  width: 50%;
+  select,
+  input {
+    width: 100%;
+  }
+}
+
+.content {
+  align-items: flex-start;
+  background-color: white;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  margin: 30px 0;
+  padding: 20px;
+  width: 100%;
+  > p {
+    font-size: 20px;
+  }
+}
+
+.finalizar {
+  margin: 0 auto;
+}

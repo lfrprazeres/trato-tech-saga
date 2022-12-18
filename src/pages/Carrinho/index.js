@@ -1,12 +1,13 @@
 import Header from 'components/Header';
 import styles from './Carrinho.module.scss';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Item from 'components/Item';
-import { resetarCarrinho } from 'store/reducers/carrinho';
 import Button from 'components/Button';
+import { useNavigate } from 'react-router-dom';
 
 export default function Carrinho() {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { carrinho, total } = useSelector(state => {
     let total = 0;
     const regexp = new RegExp(state.busca, 'i');
@@ -42,7 +43,7 @@ export default function Carrinho() {
             Subtotal: <strong> R$ {total.toFixed(2)} </strong>
           </span>
         </div>
-        <Button onClick={() => dispatch(resetarCarrinho())}>
+        <Button onClick={() => navigate('/pagamento')}>
           Finalizar compra
         </Button>
       </div>
