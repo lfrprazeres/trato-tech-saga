@@ -1,9 +1,10 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 import bandeirasService from 'services/bandeiras';
 import cartoesService from 'services/cartoes';
 import usuariosService from 'services/usuarios';
 import { carregarPagamento } from 'store/reducers/carrinho';
 import { adicionarUsuario } from '../reducers/usuario';
+import { mudarCarrinho, mudarQuantidade, mudarTotal } from '../reducers/carrinho';
 
 const usuarioLogado = 1;
 
@@ -21,6 +22,17 @@ function* carregarPagamentoSaga() {
   } catch(e) {}
 }
 
+function* calcularTotal() {
+  yield delay(500);
+  const state = yield select();
+  const total = state.carrinho.reduce((total, itemNoCarrinho) => {
+    const item = state.itens.find(item => item.id === itemNoCarrinho.id);
+    return total + item.preco * itemNoCarrinho.quantidade;
+  }, 0);
+  yield put(mudarTotal(total));
+}
+
 export function* carrinhoSaga() {
   yield takeLatest(carregarPagamento, carregarPagamentoSaga);
+  yield takeEvery([mudarQuantidade, mudarCarrinho], calcularTotal);
 }
