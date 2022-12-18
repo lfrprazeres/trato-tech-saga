@@ -234,5 +234,62 @@
       "preco": 782.91,
       "categoria": "som"
     }
-  ]
+  ],
+  "usuarios": [{
+    "id": 1,
+    "nome": "João"
+  }, {
+    "id": 2,
+    "nome": "Maria"
+  }],
+  "cartoes": [{
+    "nome": "Cartão da Maria 1",
+    "bandeiraId": 10,
+    "saldo": 300,
+    "usuarioId": 2,
+    "id": "1"
+  }, {
+    "nome": "Cartão da Maria 2",
+    "bandeiraId": 20,
+    "saldo": 500,
+    "usuarioId": 2,
+    "id": "2"
+  }, {
+    "nome": "Cartão da Maria 3",
+    "bandeiraId": 30,
+    "saldo": 1000,
+    "usuarioId": 2,
+    "id": "3"
+  }, {
+    "nome": "Cartão do João 1",
+    "bandeiraId": 10,
+    "saldo": 0,
+    "usuarioId": 1,
+    "id": "4"
+  }, {
+    "nome": "Cartão do João 2",
+    "bandeiraId": 20,
+    "saldo": 200,
+    "usuarioId": 1,
+    "id": "5"
+  }, {
+    "nome": "Cartão do João 3",
+    "bandeiraId": 30,
+    "saldo": 500,
+    "usuarioId": 1,
+    "id": "6"
+  }],
+  "bandeiras": [{
+    "nome": "Verde",
+    "id": 10,
+    "taxa": 1.1
+  }, {
+    "nome": "Vermelho",
+    "id": 20,
+    "taxa": 1.3
+  }, {
+    "nome": "Amarela",
+    "id": 30,
+    "taxa": 1.5
+  }]
 }
